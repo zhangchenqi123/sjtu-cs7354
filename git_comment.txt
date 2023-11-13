@@ -1,0 +1,56 @@
+task1:
+git checkout -b feature-newFunc
+// 编辑 diary.txt 文件
+git add mydiary/diary.txt
+git commit -m "Added diary entry for feature work"
+// 再次编辑 diary.txt 文件
+git add mydiary/diary.txt
+git commit -m "Added another diary entry for feature work"
+git rebase -i HEAD~2
+// 将第二次提交的pick 改为squash
+git checkout main
+git merge feature-newFunc
+git push origin main
+
+
+task2:
+git checkout main
+git log origin/experiment
+git cherry-pick d58314c014e17c0f8091e4f715836e14815e443d
+git push origin main
+
+task3:
+git checkout dev
+git log
+// 目标的commit id为f9ae8b
+git revert f9ae8b
+// 解决冲突，修改文件:backend/project，保留当前更改
+git add backend/project.txt
+git commit -m 'revert to commit f9ae8b'
+git push
+
+
+task4:
+git checkout main
+// 修改style.css
+git add frontend/styles.css
+git commit -m "Change font style in styles.css"
+git checkout feature-upload
+git diff main
+git checkout main
+git merge feature-upload
+// 处理冲突
+vim styles.css
+git add .
+git commit -m "merge feature-upload to main"
+git push
+
+
+task5:
+git checkout documentation --
+git rebase -i HEAD~4
+// 修改commit的顺序为3，1，2，4
+// 把最后一个pick改成squash
+git checkout main
+git merge documentation
+git push
